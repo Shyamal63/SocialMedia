@@ -1,17 +1,46 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-title>Card Images</ion-title>
+    <ion-item icon-only (click)=redirectCamera()>
+    <ion-icon name="create" item-right ></ion-icon>
+    </ion-item>
+    
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
-</ion-content>
+<ion-content class="cards-bg">
+
+  <ion-card>
+
+    <img src="assets/img/nin-live.png"/>
+
+    <ion-card-content>
+      <ion-card-title>
+        {{username}}
+      </ion-card-title>
+      <p>
+        The most popular industrial group ever, and largely responsible for bringing the music to a mass audience.
+      </p>
+    </ion-card-content>
+    <ion-row no-padding>
+      <ion-col>
+        <button ion-button clear small color="black" icon-start>
+          <ion-icon name="thumbs-up"></ion-icon>
+          Like
+        </button>
+      </ion-col>
+     
+      <ion-col text-right>
+        <ion-item (click)="shareIt()">
+        
+          <ion-icon name='share-alt'></ion-icon>
+          Share
+          
+        </ion-item>
+        
+      </ion-col>
+    </ion-row>
+
+  </ion-card>
+
+  

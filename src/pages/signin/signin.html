@@ -1,0 +1,20 @@
+<ion-content>
+<ion-list>
+    <ion-navbar>       
+    <ion-title>Log In</ion-title>
+    </ion-navbar>
+  <ion-item>
+    <ion-label>Email</ion-label>
+    <ion-input type="email" [(ngModel)]="email"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Password</ion-label>
+    <ion-input type="password" [(ngModel)]="password"></ion-input>
+  </ion-item>
+</ion-list>
+
+<div padding>
+    <button ion-button  class="submitBtn" (click)="goLogin()">Login</button>   
+    <button (click)="registered()"><p><span>Register </span></p></button> |<p> <span (click)="forgotPassword()">Forgot password?</span></p>
+</div>
+</ion-content>

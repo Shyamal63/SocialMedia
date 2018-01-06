@@ -1,0 +1,28 @@
+<ion-header>
+    <ion-navbar>              
+    <ion-title>Register</ion-title>
+    </ion-navbar>
+    </ion-header>
+    <ion-content>
+    <ion-list>
+         <ion-item>
+            <ion-label>Username</ion-label>
+            <ion-input type="text" [(ngModel)]="username"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Password</ion-label>
+            <ion-input type="password"  [(ngModel)]="password"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Email Id</ion-label>
+            <ion-input type="email"  [(ngModel)]="email"></ion-input>
+          </ion-item>
+          <ion-item>
+          <ion-label>Mobile Number</ion-label>
+          <ion-input type="number"  [(ngModel)]="mobile"></ion-input>
+        </ion-item>
+        </ion-list>
+        <div padding>  
+          <button ion-button (click)="clickhere()" >Register</button>
+        </div>
+      </ion-content>
