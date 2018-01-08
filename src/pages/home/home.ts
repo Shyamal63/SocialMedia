@@ -12,16 +12,19 @@ import * as firebase from 'firebase'
 export class HomePage {
   email:any;
   username:any;
+  placeComment:any;
+  image:any;
 
   constructor(public navCtrl: NavController,public alertCtrl: AlertController,private socialSharing: SocialSharing) {
     
-    let selfRef = firebase.database().ref('/userProfile/' + firebase.auth().currentUser.uid)
-    
-        selfRef.on('value',(snapuser:any)=>{
+  
+    let referance=firebase.database().ref('/usersData/' + firebase.auth().currentUser.uid + '/userpost/');
+        referance.on('value',(snapuser:any)=>{
           if(snapuser.val()){
-            console.log(snapuser.val());
-            this.email = snapuser.val().email;
-            this.username = snapuser.val().username;
+          //  this.email = snapuser.val().email;
+         //   this.username = snapuser.val().username;
+            this.placeComment=snapuser.val().image;
+            this.image=snapuser.val().placeComment;
           }
     
       })
