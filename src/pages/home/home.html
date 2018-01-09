@@ -10,21 +10,21 @@
 
 <ion-content class="cards-bg">
 
-  <ion-card>
+  <ion-card *ngFor='let i of array;let k = index;'>
 
-    <img src="{{image}}"/>
+    <img src="{{k.image}}"/>
      
     <ion-card-content>
       <ion-card-title>
-        {{username}}
+        {{k.username}}
       </ion-card-title>
       <p>
-       {{placeComment}}
+       {{k.placeComment}}
       </p>
     </ion-card-content>
     <ion-row no-padding>
       <ion-col>
-        <button ion-button clear small color="black" icon-start>
+        <button ion-button clear small color="black" icon-start (click)="like(k)">
           <ion-icon name="thumbs-up"></ion-icon>
           Like
         </button>

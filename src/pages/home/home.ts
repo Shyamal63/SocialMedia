@@ -14,17 +14,26 @@ export class HomePage {
   username:any;
   placeComment:any;
   image:any;
+  userId:any;
+  public array:any=[];
 
   constructor(public navCtrl: NavController,public alertCtrl: AlertController,private socialSharing: SocialSharing) {
     
-  
-    let referance=firebase.database().ref('/usersData/' + firebase.auth().currentUser.uid + '/userpost/');
+    this.userId=firebase.auth().currentUser.uid;
+    let referance=firebase.database().ref('/usersData/' );
         referance.on('value',(snapuser:any)=>{
           if(snapuser.val()){
-          //  this.email = snapuser.val().email;
-         //   this.username = snapuser.val().username;
-            this.placeComment=snapuser.val().image;
-            this.image=snapuser.val().placeComment;
+
+            let snap=snapuser.val();
+            this.array=[];
+            console.log(snap);
+          //this.email = snapuser.val().email;
+          //this.username = snapuser.val().username;
+          for(var a in snap){
+            this.array.push(snap[a])
+            console.log(this.array);
+          }
+           
           }
     
       })
@@ -35,14 +44,19 @@ export class HomePage {
 
   }
   shareIt(){
-  
-    
     // Share via email
     this.socialSharing.share('Body:http://google.com', 'Subject').then(() => {
       // Success!
     }).catch(() => {
       // Error!
     });
+
+  }
+
+like(k){
+ console.log(k);
+ console.log('hello');
+ let likePost=firebase.database().ref('/usersData/' + this.userId + /'like'/);
 
   }
 

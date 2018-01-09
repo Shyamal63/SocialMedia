@@ -19,17 +19,26 @@ export class CameraPage {
   userId:any;
   image:any;
   storageRef:any;
+  username:any;
   
   constructor(public navCtrl: NavController,private camera: Camera,) {
   this.userId=firebase.auth().currentUser.uid;
   console.log('camera page');
 console.log(this.userId);
+let userdate=firebase.database().ref('/userProfile/' + this.userId);
+userdate.on('value',(snapshot:any)=> {
+  if(snapshot.val()){
+    console.log(snapshot.val());
+    this.username=snapshot.val().username;
+
+  }
+})
 
   }
   takePicture(){
     console.log('clicked....')
     const options: CameraOptions = {
-      quality: 2,
+      quality: 50,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE
@@ -59,10 +68,10 @@ console.log(this.userId);
   
       imageRef.putString(this.base64Image, firebase.storage.StringFormat.DATA_URL).then((snapshot)=> {
         console.log(snapshot);
-        firebase.database().ref('/usersData/').set({
+        firebase.database().ref('/usersData/').push({
           image:snapshot.downloadURL,
-          placeComment:this.placeComment
-
+          placeComment:this.placeComment,
+          username:this.username
         })
        // Do something here when the data is succesfully uploaded!
       });

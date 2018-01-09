@@ -22,7 +22,7 @@ export class RegisterPage {
    
    // this.navCtrl.setRoot(LogPage);
    
-      return firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
+      return firebase.auth().createUserWithEmailAndPassword(this.email, this.username)
       .then( newUser => {
         console.log(newUser);
 
