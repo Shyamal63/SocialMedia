@@ -16,11 +16,13 @@ export class HomePage {
   image:any;
   userId:any;
   public array:any=[];
+  count:number;
 
   constructor(public navCtrl: NavController,public alertCtrl: AlertController,private socialSharing: SocialSharing) {
     
     this.userId=firebase.auth().currentUser.uid;
     let referance=firebase.database().ref('/usersData/' );
+
         referance.on('value',(snapuser:any)=>{
           if(snapuser.val()){
 
@@ -30,9 +32,22 @@ export class HomePage {
           //this.email = snapuser.val().email;
           //this.username = snapuser.val().username;
           for(var a in snap){
-            this.array.push(snap[a])
-            console.log(this.array);
+            console.log(a);
+          
+           snap[a].uid=a;
+          this.count=0; 
+            let likeResponse=snap[a].like;
+            console.log(likeResponse);
+            for(var b in likeResponse){
+              console.log(b);
+              this.count=this.count+1;
+            }
+            snap[a].likeCount=this.count;
+            this.array.push(snap[a]);
+            
           }
+          console.log(this.array);
+          
            
           }
     
@@ -56,8 +71,11 @@ export class HomePage {
 like(k){
  console.log(k);
  console.log('hello');
- let likePost=firebase.database().ref('/usersData/' + this.userId + /'like'/);
-
+ let likePost=firebase.database().ref('/usersData/' + this.array[k].uid + '/like/' + this.userId ).set({
+   
+   like:true
+ })
+//console.log(likePost);
   }
 
 }

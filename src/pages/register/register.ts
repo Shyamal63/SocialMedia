@@ -27,10 +27,12 @@ export class RegisterPage {
         console.log(newUser);
 
         firebase.database().ref('/userProfile').child(newUser.uid).set({ 
+          
           email: this.email,
           username:this.username,
           login:true,
         });
+        console.log(newUser.uid);
         alert("registration successfull");
         this.navCtrl.setRoot(LogPage);
       });

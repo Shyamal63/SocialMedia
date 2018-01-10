@@ -12,21 +12,25 @@
 
   <ion-card *ngFor='let i of array;let k = index;'>
 
-    <img src="{{k.image}}"/>
+    <img src="{{i.image}}"/>
+  
      
     <ion-card-content>
       <ion-card-title>
-        {{k.username}}
+        {{i.username}}
       </ion-card-title>
       <p>
-       {{k.placeComment}}
+       {{i.placeComment}}
       </p>
+      
     </ion-card-content>
     <ion-row no-padding>
       <ion-col>
         <button ion-button clear small color="black" icon-start (click)="like(k)">
           <ion-icon name="thumbs-up"></ion-icon>
+          {{i.likeCount}}
           Like
+         
         </button>
       </ion-col>
      
