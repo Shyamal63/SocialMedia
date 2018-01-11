@@ -13,6 +13,9 @@ import { CameraPage  } from '../pages/camera/camera';
 import  {  RegisterPage } from '../pages/register/register';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import  { ToastController }  from 'ionic-angular/components/toast/toast-controller';
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
+import { GooglePlus } from '@ionic-native/google-plus';
 import * as firebase from 'firebase'
 var config = {
   apiKey: "AIzaSyCqrVDzXxxeslQYhFtL1IJ9j_7GSyiK0pM",
@@ -31,7 +34,10 @@ firebase.initializeApp(config);
     HomePage,
     TabsPage,
     LogPage,
-    CameraPage,RegisterPage
+    CameraPage,
+    RegisterPage,
+    
+
   ],
   imports: [
     BrowserModule,
@@ -53,6 +59,8 @@ firebase.initializeApp(config);
     SplashScreen,
     Camera,
     SocialSharing,
+    Facebook,
+    GooglePlus,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

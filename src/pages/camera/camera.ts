@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { HomePage } from '../home/home';
+import  { ToastController }  from 'ionic-angular/components/toast/toast-controller';
 import * as firebase from 'firebase'
 declare var google:any;
 @Component({
@@ -21,7 +22,7 @@ export class CameraPage {
   storageRef:any;
   username:any;
   
-  constructor(public navCtrl: NavController,private camera: Camera,) {
+  constructor(public navCtrl: NavController,private camera: Camera,  public toastCtrl: ToastController) {
   this.userId=firebase.auth().currentUser.uid;
   console.log('camera page');
 console.log(this.userId);
@@ -55,9 +56,35 @@ userdate.on('value',(snapshot:any)=> {
      alert('Handle error')
     });
     
-  
-    }
-    upload() {
+  }
+    
+    upload(base64Image,userId) {
+      if(this.base64Image==undefined){
+        firebase.database().ref('/usersData/').push({
+          userId:this.userId,
+          username:this.username,
+          placeComment:this.placeComment
+        })
+       this.navCtrl.setRoot(HomePage);  
+      }
+    else{
+      if(this.placeComment==undefined){
+        let toast = this.toastCtrl.create({
+          message: 'please put a comment',
+          duration: 3000,
+          position: 'top'
+        });
+      
+        toast.onDidDismiss(() => {
+          console.log('Dismissed toast');
+        });
+      
+        toast.present();
+      }
+
+       
+
+     else { 
       this.storageRef = firebase.storage().ref();
       // Create a timestamp as filename
       const filename = Math.floor(Date.now() / 1000);
@@ -76,6 +103,7 @@ userdate.on('value',(snapshot:any)=> {
        // Do something here when the data is succesfully uploaded!
       });
       this.navCtrl.setRoot(HomePage);
-
+    }
+  }
   }
 }

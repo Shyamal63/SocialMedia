@@ -46,13 +46,9 @@ export class HomePage {
             this.array.push(snap[a]);
             
           }
-          console.log(this.array);
-          
-           
+          console.log(this.array);  
           }
-    
       })
-
   }
   redirectCamera(){
     this.navCtrl.push(CameraPage);
@@ -65,17 +61,34 @@ export class HomePage {
     }).catch(() => {
       // Error!
     });
-
   }
+  like(k){
+  console.log(k);
+  console.log(this.array[k].like);
+  /* let likePost=firebase.database().ref('/usersData/' + this.array[k].uid + '/like/' + this.userId ).set ({
+      like:true
+  })*/
+  // console.log(likePost);
 
-like(k){
- console.log(k);
- console.log('hello');
- let likePost=firebase.database().ref('/usersData/' + this.array[k].uid + '/like/' + this.userId ).set({
-   
-   like:true
- })
-//console.log(likePost);
+      if(this.array[k].like != undefined){
+        for(let key in this.array[k].like){
+          this.array[k].like[key].likeuser=key
+           console.log(this.array[k].like[key]);
+           if(key == this.userId){
+             alert("already liked");
+             
+           }else{
+            let likePost=firebase.database().ref('/usersData/' + this.array[k].uid + '/like/' + this.userId ).set ({
+              like:true
+          })
+           }
+        }
+
+      }else{
+
+          let likePost=firebase.database().ref('/usersData/' + this.array[k].uid + '/like/' + this.userId ).set ({
+            like:true
+        })
+      }
   }
-
 }
