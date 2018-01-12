@@ -1,16 +1,30 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Card Images</ion-title>
-    <ion-item icon-only (click)=redirectCamera()>
-    <ion-icon name="create" item-right ></ion-icon>
-    </ion-item>
+      <ion-item>
+          <ion-avatar item-end>
+            <ion-icon name="log-out"  (click)="logout()"  item-right ></ion-icon>
+          </ion-avatar>
+          <!-- <span (click)="logout()" item-right></span> -->
+        </ion-item>
+    <ion-title>Posts</ion-title>
+    
+  
+    
     
   </ion-navbar>
+  
 </ion-header>
 
 <ion-content class="cards-bg">
+    <ion-item icon-only (click)=redirectCamera() 
+    
+    
+    >
+        <ion-icon name="create" item-right ></ion-icon>
+        </ion-item>
+  
 
-  <ion-card *ngFor='let i of array;let k = index;'>
+  <ion-card *ngFor='let i of array;let m = index;'>
 
     <img src="{{i.image}}"/>
   
@@ -26,16 +40,21 @@
     </ion-card-content>
     <ion-row no-padding>
       <ion-col>
-        <button ion-button clear small color="black" icon-start (click)="like(k)">
+        <button ion-button  color="primary" *ngIf="i.colorFlag==false" icon-start (click)="like(m)" clear>
           <ion-icon name="thumbs-up"></ion-icon>
           {{i.likeCount}}
           Like
-         
         </button>
+        <button ion-button  color="danger" *ngIf="i.colorFlag==true" icon-start (click)="like(m)" clear>
+          <ion-icon name="thumbs-up"></ion-icon>
+          {{i.likeCount}}
+          Like
+        </button>
+        
       </ion-col>
      
       <ion-col text-right>
-        <ion-item (click)="shareIt()">
+        <ion-item (click)="shareIt(m)">
         
           <ion-icon name='share-alt'></ion-icon>
           Share

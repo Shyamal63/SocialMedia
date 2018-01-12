@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController,AlertController } from 'ionic-angular';
+import { NavController,AlertController} from 'ionic-angular';
 import { HomePage } from '../home/home';
 import * as firebase from 'firebase'
 import  {  RegisterPage } from '../register/register';
@@ -16,7 +16,7 @@ import { GooglePlus } from '@ionic-native/google-plus';
       
       
     constructor(public navCtrl: NavController,public alertCtrl: AlertController,private fb: Facebook,private googlePlus: GooglePlus) {
-      
+       
     }
     goLogin(){
         console.log(this.email +","+this.username);
@@ -83,5 +83,35 @@ import { GooglePlus } from '@ionic-native/google-plus';
       
       )
         .catch(err => console.error(err));
+      }
+      forgotPassword() {
+        let prompt = this.alertCtrl.create({
+          title: 'Login',
+          message: "Enter a name for this new album you're so keen on adding",
+          inputs: [
+            {
+              name: 'email',
+              placeholder: 'enter your email'
+            }
+          ],
+          buttons: [
+            {
+              text: 'Cancel',
+              handler: data => {
+                console.log('Cancel clicked');
+              }
+            },
+            {
+              text: 'Send',
+              handler: data => {
+                console.log(data.email);
+               return firebase.auth().sendPasswordResetEmail(data.email)
+                .then(() => alert("email sent"))
+                .catch((error) => alert(error))
+              }
+            }
+          ]
+        });
+        prompt.present();
       }
 }

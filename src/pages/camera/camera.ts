@@ -49,7 +49,7 @@ userdate.on('value',(snapshot:any)=> {
      // imageData is either a base64 encoded string or a file URI
      // If it's base64:
       this.base64Image = 'data:image/jpeg;base64,' + imageData;
-     // console.log(this.base64Image);
+      console.log(this.base64Image);
      
 
     }, (err) => {
@@ -60,15 +60,34 @@ userdate.on('value',(snapshot:any)=> {
     
     upload(base64Image,userId) {
       if(this.base64Image==undefined){
-        firebase.database().ref('/usersData/').push({
-          userId:this.userId,
-          username:this.username,
-          placeComment:this.placeComment
-        })
-       this.navCtrl.setRoot(HomePage);  
+        
+
+       if( this.placeComment.trim()==''|| this.placeComment==undefined){
+        let toast = this.toastCtrl.create({
+          message: 'please put a comment',
+          duration: 3000,
+          position: 'top'
+        });
+      
+        toast.onDidDismiss(() => {
+          console.log('Dismissed toast');
+        });
+      
+        toast.present();
+       } 
+       else{
+         firebase.database().ref('/usersData/').push({
+           userId:this.userId,
+           username:this.username,
+           placeComment:this.placeComment
+         })
+         this.navCtrl.setRoot(HomePage)
+       }
+
+    
       }
     else{
-      if(this.placeComment==undefined){
+      if(this.placeComment==undefined || this.placeComment.trim()==''){
         let toast = this.toastCtrl.create({
           message: 'please put a comment',
           duration: 3000,
@@ -81,8 +100,6 @@ userdate.on('value',(snapshot:any)=> {
       
         toast.present();
       }
-
-       
 
      else { 
       this.storageRef = firebase.storage().ref();
@@ -105,5 +122,6 @@ userdate.on('value',(snapshot:any)=> {
       this.navCtrl.setRoot(HomePage);
     }
   }
+
   }
 }
